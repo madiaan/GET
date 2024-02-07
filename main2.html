@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFXIV p11s DRK DPS</title>
+    <style>
+        @import "styles.css";
+    </style>
+</head>
+<body>
+    <div id="mainHeader">✦Final Fantasy 14 DRK Parse Calculator✦</div>
+<br/><br/><br/><br/> <!--Spacing-->
+    <div id="smallHeader">✦Calculate DPS✦</div>
+<br/><br/> <!--Spacing-->
+        
+        <div style="text-decoration: underline;">Input Fight Duration</div>
+            <div id="percentilePreviewMinimums">
+                <div>Minutes:</div>
+                <div>Seconds:</div>
+            </div>
+            <div id="numberFightTime">
+                <div id="fightMinutes" type="number">1</div>
+                <div id="fightSeconds" type="number">0</div>
+            </div>
+<br/><br/> <!--Spacing-->
+            <div>
+                <button>➖</button>
+                <button onclick="addMinute()">➕</button>
+            &ensp; <!--Spacing-->
+                <button>➖</button>
+                <button>➕</button>
+            </div> <br/>
+
+        <div style="text-decoration: underline;">Input Total Damage</div>
+            <input id="totalDMG"/> <br/>
+                <button onclick="addTenK()">+10k</button>
+                <button onclick="addTwennyK()">+25k</button>
+                <button onclick="addFiftyK()">+50k</button>
+                <button onclick="addHundredK()">+100k</button>
+                <button onclick="addTwoHundredK()">+250k</button>
+                <button onclick="addFiveHundredK()">+500k</button>
+                <button onclick="addMillion()">+1M</button>
+                <br/> <button onclick="fullReset()">Reset</button>
+<br/><br/>  <!--Spacing-->
+                
+            <button onclick="calculateDPS(), calculatePercentile()">Calculate!</button>
+<br/><br/>  <!--Spacing-->
+            <div id="smallerHeader">Your DPS</div>
+<br/><br/>  <!--Spacing-->
+        <div id="results">
+            <div id="calculatedDPS" type="number">0</div>
+<br/><br/>  <!--Spacing-->
+            <div id="percentileResult">??? <br/>Percentile</div>
+        </div>
+<br/><br/><br/>  <!--Spacing-->
+
+        <div id="smallHeader">Percentiles</div>
+<br/><br/>      <!--Spacing-->
+        <div id="percentilePreviews">
+            <div id="zeroPerc">0<br/>Percentile</div>
+            <div id="tenPerc">10<br/>Percentile</div>
+            <div id="lowerPerc">25<br/>Percentile</div>
+            <div id="medianPerc">50<br/>Percentile</div>
+            <div id="highPerc">75<br/>Percentile</div>
+            <div id="ninetyPerc">90<br/>Percentile</div>
+            <div id="orangePerc">95<br/>Percentile</div>
+            <div id="topPerc">99<br/>Percentile</div>
+            <div id="peakPerc">100<br/>Percentile</div>
+        </div>
+        <div id="percentilePreviewMinimums">
+            <div>POOR DPS</div>
+            <div>7351+ DPS</div>
+            <div>7790+ DPS</div>
+            <div>8219+ DPS</div>
+            <div>8503+ DPS</div>
+            <div>8681+ DPS</div>
+            <div>8749+ DPS</div>
+            <div>8866+ DPS</div>
+            <div>9019+ DPS</div>
+        </div>
+
+    <script src="values.js"></script>
+    <script>
+        var results = document.getElementById('results');
+        var damage = document.getElementById('totalDMG');
+        var DPSS = document.getElementById('calculatedDPS');
+        
+        currentvalue = 0;
+        
+        function calculateDPS() {
+            dpsvalue = currentvalue / 600;
+            roundedvalue = Math.round(dpsvalue);
+            DPSS.innerHTML= roundedvalue;
+        }
+        
+        function calculatePercentile() {
+            var yourBarse = document.getElementById('percentileResult');
+            yourBarse.style.border = "none";
+            if(roundedvalue < tenPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="zeroPerc">0<br/>Percentile</div> `
+            }
+            if(roundedvalue < lowerPrcnt && roundedvalue > tenPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="tenPerc">10<br/>Percentile</div> `
+            }
+            if(roundedvalue < medianPrcnt && roundedvalue > lowerPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="lowerPerc">25<br/>Percentile</div> `
+            }
+            if(roundedvalue < highPrcnt && roundedvalue > medianPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="medianPerc">50<br/>Percentile</div> `
+            }
+            if(roundedvalue < ninetyPrcnt && roundedvalue > highPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="highPerc">75<br/>Percentile</div> `
+            }
+            if(roundedvalue < orangePrcnt && roundedvalue > ninetyPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="ninetyPerc">90<br/>Percentile</div> `
+            }
+            if(roundedvalue < topPrcnt && roundedvalue > orangePrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="orangePerc">95<br/>Percentile</div> `
+            }
+            if(roundedvalue < peakPrcnt && roundedvalue > topPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="topPerc">99<br/>Percentile</div> `
+            }
+            if(roundedvalue > peakPrcnt) {
+                yourBarse.innerHTML= /*HTML*/ `
+                <div id="peakPerc">100<br/>Percentile</div> `
+            }
+        }
+        
+        //BUTTONS
+
+        //TOTAL DAMAGE ADDITIONS
+        function addTenK() {
+            currentvalue = currentvalue + 10000;
+            damage.value = currentvalue;
+        }
+        function addTwennyK() {
+            currentvalue = currentvalue + 25000;
+            damage.value = currentvalue;
+        }
+        function addFiftyK() {
+            currentvalue = currentvalue + 50000;
+            damage.value = currentvalue;
+        }
+        function addHundredK() {
+            currentvalue = currentvalue + 100000;
+            damage.value = currentvalue;
+        }
+        function addTwoHundredK() {
+            currentvalue = currentvalue + 250000;
+            damage.value = currentvalue;
+        }
+        function addFiveHundredK() {
+            currentvalue = currentvalue + 500000;
+            damage.value = currentvalue;
+        }
+        function addMillion() {
+            currentvalue = currentvalue + 1000000;
+            damage.value = currentvalue;
+        }
+        function fullReset() {
+            location.reload();
+            //currentvalue = 0;
+            //damage.value = currentvalue;
+            //yourBarse.innerHTML= /*HTML*/ `
+            //<div id="percentileResult">???<br/>Percentile</div> `
+        }
+
+        //TIME ADDITION
+        var minutos = document.getElementById('fightMinutes');
+        var segundos = document.getElementById('fightSeconds');
+        var currentminutes = 1;
+        var currentseconds = 0;
+        minutos.innerHTML= currentminutes;
+        segundos.innerHTML= currentseconds;
+
+        function addMinute() {
+            currentminutes++;
+            minutos.innerHTML = currentminutes;
+        }
+        function removeMinute() {
+            currentminutes--;
+            minutos.innerHTML = currentminutes;
+        }
+        
+    </script>
+</body>
+</html>
