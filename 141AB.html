@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clicker</title>
+    <link rel="icon" href="pfp.JPG"/>
+    <link rel="stylesheet" href="clickergameStyles2.css"/>
+</head>
+<body>
+    <div id="main" style="align-items: center;">yo</div>
+
+    <script>
+        //Model
+        var mainDiv = document.getElementById('main');
+        var points = 0;
+        var upgradeLevel = 1;
+        var pointMultiplier = 1;
+        var upgradeCost = 20;
+        var hasCheated = 0;
+
+        //View
+        clickerGame()
+        function clickerGame() {
+            mainDiv.innerHTML= /*HTML*/ `
+                <br/><br/><br/><br/>
+                <h1> Martin Clicker Game </h1>
+                <br/><br/><br/><br/>
+                    <div onclick="Points()" class="theBigButton">
+                        <span class="yourPointsStyle">${points}</span>
+                    </div>
+                <h2 style="text-decoration: underline;">Upgrades</h2>
+                    <div class="upgradesStyle">
+                        <div>Per Click: ${pointMultiplier}</div>
+                        <div>Level: ${upgradeLevel}</div>
+                        <div class=${upgradeButton(upgradeCost)} onclick="upgradeSpend()">COST: ${upgradeCost}</div>
+                    </div>
+                    <br/><br/>
+                    <div onclick="cheater()" class="cheaterStyle">Cheat 10x points?</div>
+                    <br/>
+                    <div style="opacity: ${hasCheated == 1 ? '100%' : '0%'};" class="youCheater">You have CHEATED</div>
+            `;
+        };
+
+        //Controller
+        function Points() {
+            points += pointMultiplier;
+            clickerGame();
+        };
+        function upgradeButton(upgradeCost) {
+            if(points >= upgradeCost) return '"upgradeButtonTrue"';
+            if(points <= upgradeCost) return '"upgradeButtonFalse"';
+        };
+        function upgradeSpend() {
+            if(points >= upgradeCost) {
+                points -= upgradeCost;
+                upgradeLevel++;
+                upgradeCost *= 2;
+                pointMultiplier *= 2;
+                clickerGame();
+            }
+        };
+        function cheater() {
+            points *= 10;
+            hasCheated = 1;
+            clickerGame();
+        }
+    </script>
+</body>
+</html>

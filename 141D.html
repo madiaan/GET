@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skjema</title>
+    <link rel="icon" href="pfp.JPG"/>
+</head>
+<body>
+    <script>
+        //Model
+        var registerName;
+        var registerEmail;
+        var registered = 0;
+        var buttonText = 'Register'
+        //View
+        showForm()
+        function showForm() {
+            document.body.innerHTML = /*HTML*/ `
+                <h2>Please provide information:</h2>
+                <label>Name:</label>
+                <div id="theName">
+                <input type="text" onchange="registerName = this.value"/>
+                </div>
+                <br/>
+                <label>Email:</label>
+                <div id="theEmail">
+                <input type="text" onchange="registerEmail = this.value"/>
+                </div>
+                <br/>
+                <div id="registerButton"></div>
+            `;
+            theButton();
+        };
+        //Controller
+        function registeredInfo(value) {
+            value == 0 ? registered = 1 : '';
+            value == 1 ? registered = 0 : '';
+            if (registered == 1) {
+                document.getElementById('theName').innerHTML = 
+                    `<div style="font-weight: bold;">${registerName}</div>`;
+                document.getElementById('theEmail').innerHTML = 
+                    `<div style="font-weight: bold;">${registerEmail}</div>`;
+                buttonText = 'Edit';
+            }
+            else if(registered == 0) {
+                document.getElementById('theName').innerHTML = `<input type="text" value="${registerName}" onchange="registerName = this.value"/>`;
+                document.getElementById('theEmail').innerHTML = `<input type="text" value="${registerEmail}" onchange="registerEmail = this.value"/>`;
+                buttonText = 'Register';
+            }
+        };
+        function theButton () {
+            document.getElementById('registerButton').innerHTML = 
+            `<button onclick="registeredInfo(registered); theButton()">${buttonText}</button>`
+        };
+    </script>
+</body>
+</html>
