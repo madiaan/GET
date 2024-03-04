@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>hode kropp ben</title>
+    <link rel="icon" href="pfp.JPG"/>
+    <style>
+        img {
+            width: 150px;
+            height: 150px;
+        }
+    </style>
+</head>
+<body>
+    <div id="main"></div>
+
+    <script>
+        //Model
+        headNum = 1;
+        bodyNum = 1;
+        legsNum = 1;
+        //View
+        fullBody();
+        function fullBody() {
+        let theHead = headNum == 1 ? `<img src="head1.JPG">` : '' || 2 ? `<img src="head2.JPG">` : '' || 3 ? `<img src="head3.JPG">` : '';
+        let theBoder = bodyNum == 1 ? `<img src="body1.JPG">` : '' || 2 ? `<img src="body2.JPG">` : '' || 3 ? `<img src="body3.JPG">` : '';
+        let theLegs = legsNum == 1 ? `<img src="legs1.JPG">` : '' || 2 ? `<img src="legs2.JPG">` : '' || 3 ? `<img src="legs3.JPG">` : '';
+            document.getElementById('main').innerHTML =
+                `yo<br/>`
+                theBody('headNum', theHead);
+                theBody('bodyNum', theBoder);
+                theBody('legsNum', theLegs);
+                function theBody(changes, img) {
+                    document.getElementById('main').innerHTML += /*HTML*/ `
+                        <button onclick="${changes} -= 1; fullBody();">◄</button>
+                        ${img}
+                        <button onclick="${changes} += 1; fullBody();">►</button><br/>
+                    `;
+                };
+          //  headNum == 0 ? headNum = 3 : headNum || headNum == 4 ? headNum = 1 : headNum;
+          //  bodyNum == 0 ? bodyNum = 3 : bodyNum || bodyNum == 4 ? bodyNum = 1 : bodyNum;
+          //  legsNum == 0 ? legsNum = 3 : legsNum || legsNum == 4 ? legsNum = 1 : legsNum;
+        };
+        //Controller
+    </script>
+</body>
+</html>
