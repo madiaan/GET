@@ -1,0 +1,7 @@
+Gå gjennom alle spørsmålene vi har til kunde i teamet 
+For bedre oppsett av side (evt mobil side);
+!!!! fixe opp den goofy jævla skjema CSS'en !!!! Im pixel perfect baby ;)
+
+????    Tilbake knapp på result page:
+????    ha den slik at den scroller automatisk ned til skjemaet på mainPage?
+
